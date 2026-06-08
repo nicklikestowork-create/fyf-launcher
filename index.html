@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0E0B14" />
+<title>Fuel Your Freedom Launcher — your business, done for you</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E0B14; --bg2:#16101f;
+    --ink:#F6F1FB; --sub:#A89FB8;
+    --coral:#FF6B5B; --orange:#FF9A52; --indigo:#7B7BFF; --pink:#FF5FA2;
+    --ok:#34D399;
+    --card:rgba(255,255,255,.045); --cardline:rgba(255,255,255,.09);
+    --grad:linear-gradient(120deg,#FF6B5B,#FF5FA2 45%,#7B7BFF);
+    --grad-soft:linear-gradient(120deg,rgba(255,107,91,.16),rgba(123,123,255,.16));
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;padding:0 0 60px;overflow-x:hidden}
+  h1,h2,h3,.logo,.tab,.lead h1,.t-title,.hero-h{font-family:"Plus Jakarta Sans",Inter,sans-serif}
+
+  .blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.5;z-index:0;pointer-events:none}
+  .b1{width:380px;height:380px;background:#FF6B5B;top:-120px;left:-100px;animation:f1 18s ease-in-out infinite}
+  .b2{width:340px;height:340px;background:#7B7BFF;top:10%;right:-120px;animation:f2 22s ease-in-out infinite}
+  .b3{width:300px;height:300px;background:#FF5FA2;bottom:-80px;left:20%;animation:f3 20s ease-in-out infinite}
+  @keyframes f1{50%{transform:translate(60px,80px) scale(1.15)}}
+  @keyframes f2{50%{transform:translate(-70px,60px) scale(1.1)}}
+  @keyframes f3{50%{transform:translate(50px,-60px) scale(1.2)}}
+
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px;position:relative;z-index:1}
+
+  header{position:sticky;top:0;z-index:30;backdrop-filter:saturate(160%) blur(18px);
+    background:linear-gradient(180deg,rgba(14,11,20,.92),rgba(14,11,20,.6));
+    border-bottom:1px solid var(--cardline);padding:env(safe-area-inset-top) 0 0}
+  .head-row{display:flex;align-items:center;gap:11px;padding:13px 0 11px}
+  .logo{font-weight:800;font-size:15px;letter-spacing:-.3px;display:flex;align-items:center;gap:7px;line-height:1.1}
+  .logo .mark{width:26px;height:26px;border-radius:9px;background:var(--grad);display:grid;place-items:center;
+    box-shadow:0 6px 18px rgba(255,107,91,.45);font-size:14px}
+  .logo .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+  .ring{margin-left:auto;width:42px;height:42px;position:relative}
+  .ring svg{transform:rotate(-90deg)}
+  .ring .pct{position:absolute;inset:0;display:grid;place-items:center;font-size:11px;font-weight:800;font-family:"Plus Jakarta Sans"}
+
+  .tabs{display:flex;gap:5px;padding:4px;margin:0 0 12px;background:rgba(255,255,255,.05);
+    border:1px solid var(--cardline);border-radius:16px}
+  .tab{flex:1;border:none;cursor:pointer;font:inherit;font-weight:700;font-size:12.5px;color:var(--sub);
+    padding:9px 4px;border-radius:12px;background:transparent;display:flex;flex-direction:column;
+    align-items:center;gap:2px;transition:.22s;line-height:1.1}
+  .tab .n{font-size:9px;font-weight:800;letter-spacing:.6px;opacity:.65}
+  .tab.active{color:#fff;background:var(--grad);box-shadow:0 8px 22px rgba(255,107,91,.35)}
+  .tab.active .n{opacity:.95}
+  .tab:active{transform:scale(.96)}
+
+  .panel{display:none}
+  .panel.active{display:block;animation:rise .4s cubic-bezier(.2,.7,.2,1)}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  .lead{padding:22px 0 6px}
+  .lead .kick{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .lead h1{font-size:30px;line-height:1.1;letter-spacing:-.8px;margin:6px 0 8px;font-weight:800}
+  .lead p{margin:0;color:var(--sub);font-size:15px;line-height:1.55}
+
+  .card{background:var(--card);border:1px solid var(--cardline);border-radius:22px;
+    padding:18px;margin:14px 0;backdrop-filter:blur(8px);
+    box-shadow:0 12px 40px rgba(0,0,0,.35);animation:rise .5s both}
+  .card.glow{background:var(--grad-soft);border-color:rgba(255,107,91,.3)}
+
+  .field{margin-bottom:14px}
+  .field:last-child{margin-bottom:0}
+  .field label{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;margin-bottom:6px;color:#D9D1E6}
+  .field label .dot{width:6px;height:6px;border-radius:50%;background:var(--grad)}
+  .field input,.field textarea{width:100%;border:1px solid var(--cardline);background:rgba(255,255,255,.04);
+    border-radius:13px;padding:12px 13px;font:inherit;font-size:15px;color:var(--ink);resize:vertical;transition:.18s}
+  .field input::placeholder,.field textarea::placeholder{color:#6f6680}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--coral);background:rgba(255,255,255,.07);
+    box-shadow:0 0 0 4px rgba(255,107,91,.12)}
+  .saved{font-size:12px;color:var(--ok);font-weight:700;opacity:0;transition:.3s}
+  .saved.show{opacity:1}
+
+  .task{display:flex;align-items:flex-start;gap:13px;padding:16px 0;border-bottom:1px solid var(--cardline)}
+  .task:last-child{border-bottom:none}
+  .medal{width:42px;height:42px;border-radius:13px;flex:0 0 auto;display:grid;place-items:center;font-size:20px;
+    background:var(--grad-soft);border:1px solid var(--cardline);transition:.25s}
+  .task.done .medal{background:var(--grad);box-shadow:0 8px 20px rgba(255,107,91,.4)}
+  .t-main{flex:1;min-width:0}
+  .t-row{display:flex;align-items:center;gap:10px}
+  .t-title{font-weight:700;font-size:16.5px}
+  .task.done .t-title{color:var(--sub);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.2)}
+  .t-why{font-size:13px;color:var(--sub);margin-top:3px;line-height:1.45}
+  .t-act{margin-top:11px}
+  .check{margin-left:auto;width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.22);
+    flex:0 0 auto;display:grid;place-items:center;transition:.2s;cursor:pointer;background:rgba(255,255,255,.03)}
+  .check svg{width:15px;height:15px;opacity:0;transform:scale(.4);transition:.25s}
+  .task.done .check{background:var(--ok);border-color:var(--ok)}
+  .task.done .check svg{opacity:1;transform:scale(1)}
+
+  .btn{display:inline-flex;align-items:center;gap:7px;border:none;cursor:pointer;font:inherit;
+    font-weight:700;font-size:14px;padding:12px 18px;border-radius:13px;text-decoration:none;transition:.16s;margin:4px 7px 4px 0}
+  .btn:active{transform:scale(.96)}
+  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 10px 26px rgba(255,107,91,.4)}
+  .btn-glass{background:rgba(255,255,255,.07);color:var(--ink);border:1px solid var(--cardline)}
+  .btn-sm{padding:9px 14px;font-size:13px}
+
+  .out{background:rgba(0,0,0,.22);border:1px solid var(--cardline);border-radius:16px;padding:14px;margin:12px 0 8px}
+  .dfy{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.4px;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+  .gen-item{padding:11px 0;border-bottom:1px solid var(--cardline);font-size:14px;line-height:1.55}
+  .gen-item:last-child{border-bottom:none}
+  .gen-item .num{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:7px;font-size:11px;
+    font-weight:800;background:var(--grad);color:#fff;margin-right:8px;vertical-align:middle}
+  .gen-item b{color:#fff}
+  .ad{padding:13px 0;border-bottom:1px solid var(--cardline)}
+  .ad:last-child{border-bottom:none}
+  .ad .lab{font-size:10px;font-weight:800;letter-spacing:.5px;color:var(--coral);text-transform:uppercase}
+  .ad .hl{font-weight:800;font-size:15px;margin:3px 0 5px}
+  .ad .pt{font-size:14px;line-height:1.5;white-space:pre-wrap;color:#D9D1E6;margin:0 0 7px}
+  .ad .cta{display:inline-block;font-size:11px;font-weight:800;background:var(--grad);color:#fff;padding:4px 11px;border-radius:7px}
+  .glink{color:var(--indigo);font-weight:700;text-decoration:none}
+  .note{font-size:12px;color:var(--sub);margin-top:9px;line-height:1.5}
+
+  /* Dashboard */
+  .stat-row{display:flex;gap:10px;margin:14px 0}
+  .stat{flex:1;background:var(--card);border:1px solid var(--cardline);border-radius:18px;padding:14px 8px;text-align:center;backdrop-filter:blur(8px)}
+  .stat .v{font-family:"Plus Jakarta Sans";font-size:21px;font-weight:800;letter-spacing:-.5px}
+  .stat .l{font-size:10.5px;color:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
+  .bigbar{height:12px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin:12px 0}
+  .bigbar>span{display:block;height:100%;background:var(--grad);border-radius:99px;transition:width .6s cubic-bezier(.2,.7,.2,1)}
+  .dash-step{display:flex;align-items:center;gap:11px;padding:12px 0;border-bottom:1px solid var(--cardline);cursor:pointer}
+  .dash-step:last-child{border-bottom:none}
+  .dash-step .dot2{width:23px;height:23px;border-radius:50%;border:2px solid rgba(255,255,255,.2);flex:0 0 auto;
+    display:grid;place-items:center;font-size:12px;font-weight:800}
+  .dash-step.done .dot2{background:var(--ok);border-color:var(--ok);color:#0E0B14}
+  .dash-step .nm{font-size:14.5px;font-weight:600}
+  .dash-step.done .nm{color:var(--sub);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.2)}
+  .dash-step .go{margin-left:auto;color:var(--sub);font-size:18px}
+  .nav-row{display:flex;gap:10px;margin-top:2px}
+  .nav-card{flex:1;background:var(--card);border:1px solid var(--cardline);border-radius:18px;padding:15px 8px;
+    text-align:center;cursor:pointer;transition:.15s}
+  .nav-card:active{transform:scale(.96)}
+  .nav-card .ic{font-size:22px}
+  .nav-card .t{font-size:12.5px;font-weight:700;margin-top:5px}
+  /* P&L */
+  .pnl-summary{display:block}
+  .pnl-big{display:flex;gap:14px}
+  .pnl-big>div{flex:1;display:flex;flex-direction:column;gap:3px}
+  .pl-lab{font-size:11.5px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.5px}
+  .pl-val{font-family:"Plus Jakarta Sans";font-size:25px;font-weight:800;letter-spacing:-.5px}
+  .pl-val.pos{color:var(--ok)}
+  .pl-val.neg{color:#FF6B6B}
+  .pnl-sec{margin:0 0 20px}
+  .pnl-sec:last-child{margin-bottom:0}
+  .pnl-sec h4{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--sub)}
+  .pnl-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  .pnl-row .lbl,.pnl-row .amt{border:1px solid var(--cardline);background:rgba(255,255,255,.04);border-radius:11px;
+    padding:10px 12px;font:inherit;font-size:14px;color:var(--ink)}
+  .pnl-row .lbl{flex:1;min-width:0}
+  .pnl-row .amt{width:112px;text-align:right}
+  .pnl-row .lbl:focus,.pnl-row .amt:focus{outline:none;border-color:var(--coral);background:rgba(255,255,255,.07)}
+  .pnl-row .rm{flex:0 0 auto;width:34px;height:39px;border-radius:10px;border:1px solid var(--cardline);
+    background:rgba(255,255,255,.04);color:var(--sub);cursor:pointer;font-size:13px;transition:.15s}
+  .pnl-row .rm:hover{color:#fff;background:rgba(255,107,91,.25);border-color:var(--pink)}
+  .pnl-add{border:1px dashed var(--cardline);background:transparent;color:var(--sub);border-radius:11px;
+    padding:10px 12px;font:inherit;font-weight:700;font-size:13px;cursor:pointer;width:100%;transition:.15s;margin-top:2px}
+  .pnl-add:hover{color:#fff;border-color:var(--coral)}
+  .pnl-sub{display:flex;justify-content:space-between;margin-top:11px;padding-top:11px;
+    border-top:1px solid var(--cardline);font-weight:800;font-size:14px}
+  .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(24px);
+    background:var(--grad);color:#fff;padding:11px 20px;border-radius:99px;font-size:13.5px;font-weight:700;
+    opacity:0;pointer-events:none;transition:.3s cubic-bezier(.2,.7,.2,1);z-index:60;box-shadow:0 12px 30px rgba(255,107,91,.5)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  canvas#cf{position:fixed;inset:0;pointer-events:none;z-index:55}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<canvas id="cf"></canvas>
+
+<header>
+  <div class="wrap">
+    <div class="head-row">
+      <span class="logo"><span class="mark">🚀</span><span>Fuel Your Freedom <span class="g">Launcher</span></span></span>
+      <div class="ring" id="ring">
+        <svg width="42" height="42"><circle cx="21" cy="21" r="17" stroke="rgba(255,255,255,.12)" stroke-width="4" fill="none"/>
+        <circle id="ringbar" cx="21" cy="21" r="17" stroke="url(#rg)" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="106.8" stroke-dashoffset="106.8"/>
+        <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF6B5B"/><stop offset="1" stop-color="#7B7BFF"/></linearGradient></defs></svg>
+        <span class="pct" id="pct">0%</span>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" data-tab="0"><span class="n">HOME</span>Dashboard</button>
+      <button class="tab" data-tab="1"><span class="n">STEP 1</span>The Plan</button>
+      <button class="tab" data-tab="2"><span class="n">STEP 2</span>Set Up</button>
+      <button class="tab" data-tab="3"><span class="n">STEP 3</span>Marketing</button>
+      <button class="tab" data-tab="4"><span class="n">STEP 4</span>Profits</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="panel active" data-panel="0">
+    <div class="lead">
+      <div class="kick">Your launch</div>
+      <h1 id="dashTitle">Dashboard</h1>
+      <p id="dashSub">Here's where everything stands. Pick up wherever you left off.</p>
+    </div>
+    <div id="dashBody"></div>
+  </section>
+
+  <section class="panel" data-panel="1">
+    <div class="lead">
+      <div class="kick">Step 1 · The quick questions</div>
+      <h1>Let's plan your business</h1>
+      <p>Answer these once. We'll instantly turn them into your setup checklist and your marketing — written and ready to go. No experience needed.</p>
+    </div>
+    <div class="card">
+      <div class="field"><label><span class="dot"></span>What's your business called?</label><input id="f_name" placeholder="e.g. Bright Lawn Co."></div>
+      <div class="field"><label><span class="dot"></span>What will you do for customers?</label><textarea id="f_does" rows="2" placeholder="e.g. monthly lawn care for homeowners"></textarea></div>
+      <div class="field"><label><span class="dot"></span>How will customers find you?</label><input id="f_leads" placeholder="e.g. Facebook ads + door hangers"></div>
+      <div class="field"><label><span class="dot"></span>What's your first goal?</label><input id="f_goal" placeholder="e.g. 10 paying clients in 30 days"></div>
+      <div class="field"><label><span class="dot"></span>Any tools or software you'll need?</label><input id="f_software" placeholder="e.g. CRM, invoicing, scheduling"></div>
+      <div class="field"><label><span class="dot"></span>Will anyone help you run it?</label><input id="f_employees" placeholder="e.g. just me to start"></div>
+      <div class="field"><label><span class="dot"></span>What equipment do you need?</label><input id="f_equipment" placeholder="e.g. mower, trailer, trimmer"></div>
+      <div class="field"><label><span class="dot"></span>Roughly, what will it cost to start?</label><input id="f_costs" placeholder="e.g. ~$4,000"></div>
+      <span class="saved" id="savedMsg">Saved ✓</span>
+    </div>
+    <div class="card glow" id="planCTA" style="text-align:center">
+      <div class="t-title">Nice — the hard part's done 🎉</div>
+      <p class="note" style="margin:6px 0 12px">Your sales pitch, your ads, and where to find customers are already written. Go take a look.</p>
+      <button class="btn btn-primary" id="toAction">Show me what you made →</button>
+    </div>
+  </section>
+
+  <section class="panel" data-panel="2">
+    <div class="lead">
+      <div class="kick">Step 2 · Make it official</div>
+      <h1>Set up the basics</h1>
+      <p>The handful of things that make your business real. We've pre-filled the details — most take just a click or two.</p>
+    </div>
+    <div class="card" id="setupList"></div>
+  </section>
+
+  <section class="panel" data-panel="3">
+    <div class="lead">
+      <div class="kick">Step 3 · Win customers</div>
+      <h1>Get your first customers</h1>
+      <p>We wrote all of this from your plan. Just copy, paste, and post — no writing required.</p>
+    </div>
+
+    <div class="card">
+      <span class="dfy">✨ DONE FOR YOU</span>
+      <div class="t-title">10 reasons people will choose you</div>
+      <div id="o_reasons"></div>
+      <button class="btn btn-glass btn-sm" id="gen_r" style="margin-top:10px">↻ Regenerate</button>
+    </div>
+
+    <div class="card">
+      <span class="dfy">✨ DONE FOR YOU</span>
+      <div class="t-title">10 Facebook ads, ready to run</div>
+      <p class="note" style="margin:2px 0 12px">Fill these 3 and the hooks get razor-sharp. Optional — but this is what makes them convert.</p>
+      <div class="field"><label><span class="dot"></span>Who's your customer?</label><input id="f_customer" placeholder="e.g. busy homeowners"></div>
+      <div class="field"><label><span class="dot"></span>Their #1 frustration?</label><input id="f_pain" placeholder="e.g. losing weekends to yard work"></div>
+      <div class="field"><label><span class="dot"></span>Your offer / hook (optional)</label><input id="f_offer" placeholder="e.g. first cut half off"></div>
+      <div id="o_ads"></div>
+      <button class="btn btn-glass btn-sm" id="gen_a" style="margin-top:10px">↻ Regenerate</button>
+    </div>
+
+    <div class="card">
+      <span class="dfy">✨ DONE FOR YOU</span>
+      <div class="t-title">10 FB group posts that bring in calls</div>
+      <p class="note" style="margin:2px 0 12px">Drop these into local + niche Facebook groups. Each one ends with a call to your business line.</p>
+      <div id="o_posts"></div>
+      <button class="btn btn-glass btn-sm" id="gen_p" style="margin-top:10px">↻ Regenerate</button>
+    </div>
+  </section>
+
+  <section class="panel" data-panel="4">
+    <div class="lead">
+      <div class="kick">Step 4 · Know your numbers</div>
+      <h1>Profit &amp; Loss</h1>
+      <p>Edit the lines, watch it total live. This is how you know if you're actually making money.</p>
+    </div>
+    <div class="card pnl-summary" id="pnlSummary"></div>
+    <div class="card"><div class="field" style="margin:0"><label><span class="dot"></span>Period</label><input id="pnlPeriod" placeholder="e.g. June 2026"></div></div>
+    <div class="card" id="pnlBody"></div>
+    <div style="text-align:center;margin-top:4px"><button class="btn btn-primary" id="pnlCsv">⬇ Download CSV</button></div>
+  </section>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const KEY='launchit.v1';
+let state=JSON.parse(localStorage.getItem(KEY)||'{}');
+state.fields=state.fields||{}; state.done=state.done||{};
+state.pnl=state.pnl||{period:'',
+  revenue:[{label:'Sales',amt:0},{label:'Other income',amt:0}],
+  cogs:[{label:'Materials',amt:0},{label:'Labor / contractors',amt:0},{label:'Processing fees',amt:0}],
+  opex:[{label:'Software',amt:0},{label:'Marketing / ads',amt:0},{label:'Equipment',amt:0},{label:'Insurance',amt:0},{label:'Bank / LLC / legal',amt:0},{label:'Other',amt:0}]};
+function save(){localStorage.setItem(KEY,JSON.stringify(state));}
+function F(k,fb){return (state.fields[k]&&state.fields[k].trim())||fb;}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),1700);}
+function copy(t){
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>toast('Copied ✓'),()=>fallbackCopy(t));}
+  else fallbackCopy(t);
+}
+function fallbackCopy(t){try{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Copied ✓');}catch(e){toast('Copy failed — long-press to copy');}}
+function dl(name,t){const b=new Blob([t],{type:'text/plain'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u);toast('Downloaded ✓');}
+
+const cf=$('#cf'),ctx=cf.getContext('2d');let parts=[];
+function size(){cf.width=innerWidth;cf.height=innerHeight;}size();addEventListener('resize',size);
+function burst(){const cols=['#FF6B5B','#FF5FA2','#7B7BFF','#FF9A52','#34D399'];
+  for(let i=0;i<90;i++)parts.push({x:innerWidth/2,y:innerHeight/3,vx:(Math.cos(i)*6)+(i%5-2),vy:-(Math.random()*9+4),
+    g:.32,s:Math.random()*7+4,c:cols[i%cols.length],r:Math.random()*6,vr:(i%2?.2:-.2),life:120});
+  if(!cf._on){cf._on=1;tick();}}
+function tick(){ctx.clearRect(0,0,cf.width,cf.height);parts.forEach(p=>{p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life--;
+  ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.5);ctx.restore();});
+  parts=parts.filter(p=>p.life>0&&p.y<cf.height+40);
+  if(parts.length)requestAnimationFrame(tick);else{ctx.clearRect(0,0,cf.width,cf.height);cf._on=0;}}
+
+function goTab(i){$$('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===String(i)));
+  $$('.panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===String(i)));
+  state.tab=String(i);save();window.scrollTo({top:0,behavior:'smooth'});
+  if(String(i)==='0')renderDashboard();
+  if(String(i)==='3')renderAction();
+  if(String(i)==='4')renderPnl();}
+$$('.tab').forEach(t=>t.addEventListener('click',()=>goTab(t.dataset.tab)));
+$('#toAction').onclick=()=>goTab(2);
+
+const PF=['name','does','leads','goal','software','employees','equipment','costs'];
+PF.forEach(f=>{const el=$('#f_'+f);el.value=state.fields[f]||'';
+  el.addEventListener('input',()=>{state.fields[f]=el.value;save();
+    const m=$('#savedMsg');m.classList.add('show');clearTimeout(m._t);m._t=setTimeout(()=>m.classList.remove('show'),1200);});});
+
+const biz=()=>F('name','your business'), svc=()=>F('does','what you do');
+function reasons(){const s=svc(),n=biz();return[
+  ['It saves them time',`${cap(s)} takes a time-eating job off their plate so they can focus on what matters to them.`],
+  ['It saves them money',`Doing it wrong costs more later. ${n} gets it right the first time — no expensive do-overs.`],
+  ['It removes the hassle',`No stress, no learning curve. ${cap(n)} handles ${s} so they never have to think about it.`],
+  ['They get a real pro',`Not a guess off YouTube. ${cap(n)} does ${s} for a living, and the result shows it.`],
+  ['Faster results',`No waiting, no figuring it out as they go. ${cap(n)} delivers quickly and predictably.`],
+  ['Peace of mind',`They know it's handled, and handled right. That confidence is worth the price alone.`],
+  ['It avoids costly mistakes',`The DIY route is full of expensive errors. ${cap(n)} already knows where they hide.`],
+  ['People trust it',`Reputation matters. Customers who pick ${n} for ${s} come back and refer friends.`],
+  ['It\'s convenient',`Easy to start, easy to work with. ${cap(n)} makes saying yes simple.`],
+  ['Long-term value',`Not a quick patch — ${s} done right by ${n} keeps paying off long after the job's done.`],
+];}
+function ads(){
+  const n=biz(), s=svc(), c=F('customer','people like you'), p=F('pain','the hassle'), offer=F('offer',''), ph=F('phone','');
+  const A=[
+    {ang:'Callout / problem',hl:`${cap(c)} — still dealing with ${p}?`,
+     pt:`That ends now.\n\n${cap(n)} handles ${s} so you never think about it again.\nNo stress. No DIY. No wasted time.\n\n👉 Tap below — we'll take it from here.`,cta:'Send Message'},
+    {ang:'Big promise',hl:`${cap(s)} — handled for you, start to finish.`,
+     pt:`No headaches. No learning curve. No "I'll get to it later."\n\n${cap(n)} takes ${s} completely off your plate.\nThis is what done-for-you actually feels like.`,cta:'Learn More'},
+    {ang:'Cost of inaction',hl:`${cap(p)} is costing you more than you think.`,
+     pt:`Add up the time. The stress. The money lost doing it the hard way.\n\nNow picture handing it all off — for less than you'd guess.\n${cap(n)} takes care of ${s}, so you don't have to.\n\n👉 See what it'd save you.`,cta:'Get Quote'},
+    {ang:'Contrarian',hl:`Handling ${p} yourself isn't saving you money.`,
+     pt:`It's costing you — every single week.\n\n${cap(n)} does ${s} so ${c} can stop trading their time for a problem someone else can solve.\n\nDo the math. Then tap below.`,cta:'Learn More'},
+    {ang:'If / then',hl:`If ${p} sounds all too familiar, read this.`,
+     pt:`${cap(n)} takes ${s} off your hands completely.\nDone right. Done on time. Done for you.\n\nSound good? Let's talk.`,cta:'Send Message'},
+    {ang:'Future-pace',hl:`Picture ${p} — gone for good.`,
+     pt:`No more dreading it. No more putting it off.\nJust ${s}, handled — by ${n}.\n\nMake it real 👇`,cta:'Book Now'},
+    {ang:'Social proof',hl:`Why ${c} keep choosing ${n}.`,
+     pt:`Because we show up. We deliver. And it's right every time.\nNo chasing. No excuses. No surprises.\n\nThat's ${s}, done right.\n👉 Join them.`,cta:'Send Message'},
+    {ang:'Offer / urgency',hl: offer? `${cap(offer)} — this month only.` : `Booking now — limited spots this month.`,
+     pt:`${cap(n)} handles ${s} for ${c}, start to finish.\n${offer? 'Lock in '+offer+' before spots fill up.' : 'Claim your spot before they\'re gone.'}\nThey're going fast.`,cta:'Get Offer'},
+    {ang:'Listicle',hl:`3 signs you're done putting up with ${p}:`,
+     pt:`1. It eats time you don't have.\n2. You keep "getting to it later."\n3. You'd happily pay to never deal with it again.\n\nIf that's you — ${n} has you covered.`,cta:'Learn More'},
+    {ang:'Founder story',hl:`We built ${n} because ${c} were sick of ${p}.`,
+     pt:`So we made it simple: you stop dealing with it, we handle ${s}.\nReliable. Done. Off your plate.\n\nThat's the whole idea — and it works.\n👉 Try us.`,cta:'Send Message'},
+  ];
+  return A.map((x,i)=>({lab:`Ad ${i+1} · ${x.ang}`,hl:x.hl,pt:x.pt+(ph?`\n📞 Call ${ph}`:''),cta:ph?'Call Now':x.cta}));
+}
+function posts(){
+  const n=biz(), s=svc(), c=F('customer','homeowners'), p=F('pain','the hassle'), offer=F('offer',''), ph=F('phone','[add your number in Step 2]');
+  const P=[
+    ['Intro / offer',`👋 Hey everyone! I run ${n} — we handle ${s} so you don't have to. Taking on new ${c} right now.\n📞 Call ${ph} to get started.`],
+    ['Anyone need…',`Anyone here tired of ${p}? That's exactly what we take off your plate. ${cap(n)} handles ${s} start to finish.\n📞 Give us a call: ${ph}`],
+    ['Local / serving',`Proud to help ${c} around here with reliable ${s}. Want it handled? We've got you.\n📞 ${ph}`],
+    ['Booking now',`We're booking new clients this month and have a few spots left. Want one?\n${cap(n)} — ${s} done for you.\n📞 Call ${ph} before they fill up.`],
+    ['Tip + soft pitch',`Friendly reminder: staying on top of ${s} saves you way more headaches down the road. Don't want to deal with it yourself? That's what we're here for.\n📞 ${ph}`],
+    ['Before / after',`From "ugh" to handled — that's what we do. ${cap(n)} takes care of ${s} for ${c} every time.\n📞 Call ${ph}`],
+    ['Referral ask',`Know someone sick of ${p}? Send them my way 🙏 ${cap(n)} handles ${s}.\n📞 ${ph}`],
+    ['New-customer special', offer? `New customer special: ${offer}! ${cap(n)} handles ${s} for you.\n📞 Call ${ph} to claim it.` : `Welcoming new customers! ${cap(n)} handles ${s} so you don't have to.\n📞 Call ${ph}.`],
+    ['Problem callout',`Sick of ${p}? Let us take it off your hands for good. ${cap(n)} — ${s}.\n📞 ${ph}`],
+    ['Founder note',`Hey all — I started ${n} to make ${s} effortless for ${c}. If that sounds like something you need, I'd love to help.\n📞 Call me: ${ph}`],
+  ];
+  return P.map(x=>({lab:x[0],pt:x[1]}));
+}
+function pnl(){const n=biz();return`${n} — Profit & Loss
+Period: ______ to ______
+
+REVENUE
+  Sales,                    $0.00
+  Other income,             $0.00
+  TOTAL REVENUE,            $0.00
+COST OF GOODS SOLD
+  Materials,                $0.00
+  Labor / contractors,      $0.00
+  Processing fees,          $0.00
+  TOTAL COGS,               $0.00
+GROSS PROFIT,               $0.00
+OPERATING EXPENSES
+  Software,                 $0.00
+  Marketing / ads,          $0.00
+  Equipment,                $0.00
+  Insurance,                $0.00
+  Bank / LLC / legal,       $0.00
+  Other,                    $0.00
+  TOTAL OPEX,               $0.00
+NET PROFIT,                 $0.00
+
+Update the right column monthly. Net profit is what you keep.`;}
+
+function renderReasons(){const r=reasons();$('#o_reasons').innerHTML=`<div class="out"><span class="dfy">✨ written from your plan</span>`+
+  r.map((x,i)=>`<div class="gen-item"><span class="num">${i+1}</span><b>${x[0]}</b><br>${x[1]}</div>`).join('')+
+  `</div><button class="btn btn-primary btn-sm" id="cp_r">Copy all 10</button>`;
+  $('#cp_r').onclick=()=>copy(r.map((x,i)=>`${i+1}. ${x[0]}\n${x[1]}`).join('\n\n'));}
+function renderAds(){const a=ads();$('#o_ads').innerHTML=`<div class="out"><span class="dfy">✨ ready to run</span>`+
+  a.map(x=>`<div class="ad"><div class="lab">${x.lab}</div><div class="hl">${x.hl}</div><div class="pt">${x.pt}</div><span class="cta">▸ ${x.cta}</span></div>`).join('')+
+  `</div><button class="btn btn-primary btn-sm" id="cp_a">Copy all 10</button>`;
+  $('#cp_a').onclick=()=>copy(a.map(x=>`${x.lab}\nHEADLINE: ${x.hl}\n${x.pt}\nBUTTON: ${x.cta}`).join('\n\n———\n\n'));}
+function renderPosts(){const a=posts();$('#o_posts').innerHTML=`<div class="out"><span class="dfy">✨ ready to post</span>`+
+  a.map((x,i)=>`<div class="ad"><div class="lab">Post ${i+1} · ${x.lab}</div><div class="pt">${x.pt}</div></div>`).join('')+
+  `</div><button class="btn btn-primary btn-sm" id="cp_p">Copy all 10</button>`;
+  $('#cp_p').onclick=()=>copy(a.map((x,i)=>`POST ${i+1} — ${x.lab}\n${x.pt}`).join('\n\n———\n\n'));}
+$('#gen_r').onclick=()=>{renderReasons();toast('Fresh copy ✓');};
+$('#gen_a').onclick=()=>{renderAds();toast('Fresh ads ✓');};
+$('#gen_p').onclick=()=>{renderPosts();toast('Fresh posts ✓');};
+['customer','pain','offer'].forEach(f=>{const el=$('#f_'+f);if(!el)return;el.value=state.fields[f]||'';
+  el.addEventListener('input',()=>{state.fields[f]=el.value;save();renderAds();renderPosts();});});
+
+const TASKS=[
+  {id:'llc',icon:'⚖️',title:'Create LLC',why:'Makes your business official and protects your personal money if anything ever goes wrong.',
+   act:b=>{b.innerHTML=`<a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent('file LLC articles of organization secretary of state')}">File with your state ↗</a><a class="btn btn-glass btn-sm" target="_blank" rel="noopener" href="https://www.zenbusiness.com/">Use a service ↗</a><p class="note">Name: <b>${F('name','your business')}</b> · usually $50–$300 · then grab your free EIN at irs.gov.</p>`;}},
+  {id:'ein',icon:'🪪',title:'Create EIN',why:'Your business tax ID — free, and needed for a bank account and taxes.',
+   act:b=>{b.innerHTML=`<a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online">Apply on IRS.gov (free) ↗</a><p class="note">Wait until your LLC is approved, then apply directly with the IRS. You get the number instantly — never pay a third party for this.</p>`;}},
+  {id:'bank',icon:'🏦',title:'Open a business bank account',why:'Keep business money separate from personal — it protects your LLC and makes taxes painless.',
+   act:b=>{b.innerHTML=`<a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://mercury.com/">Mercury ↗</a><a class="btn btn-glass btn-sm" target="_blank" rel="noopener" href="https://www.bluevine.com/">Bluevine ↗</a><a class="btn btn-glass btn-sm" target="_blank" rel="noopener" href="https://www.novo.co/">Novo ↗</a><p class="note">Have your LLC docs + EIN ready — most approve online same-day. Never run business cash through your personal account.</p>`;}},
+  {id:'domain',icon:'🌐',title:'Buy Domain',why:'Lock your name online before someone else does.',
+   act:b=>{const slug=F('name','yourbiz').toLowerCase().replace(/[^a-z0-9]/g,'');b.innerHTML=`<a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://www.namecheap.com/domains/registration/results/?domain=${slug}.com">Check ${slug||'yourname'}.com ↗</a><a class="btn btn-glass btn-sm" target="_blank" rel="noopener" href="https://www.godaddy.com/domains">GoDaddy ↗</a><p class="note">Grab the .com. ~$12/yr.</p>`;}},
+  {id:'website',icon:'🌍',title:'Create a website with AI',why:'Have Claude build you a beautiful website — based on a site you already love.',
+   act:b=>{
+     b.innerHTML=`<div class="field"><label><span class="dot"></span>Paste a website you love (for inspiration)</label><input id="f_inspo" placeholder="e.g. a competitor or a site whose look you want"></div>
+       <button class="btn btn-primary btn-sm" id="genSite">✨ Build my website prompt</button>
+       <div id="o_site"></div>
+       <p class="note" style="margin-top:10px">Rather drag-and-drop it yourself? <a class="glink" target="_blank" rel="noopener" href="https://carrd.co/">Carrd ↗</a></p>`;
+     const inspo=b.querySelector('#f_inspo'); inspo.value=state.fields.inspo||'';
+     inspo.addEventListener('input',()=>{state.fields.inspo=inspo.value;save();});
+     b.querySelector('#genSite').onclick=()=>{
+       const n=biz(),s=svc(),c=F('customer','my ideal customers'),offer=F('offer',''),ph=F('phone',''),ins=F('inspo','');
+       const p=`You are an expert web designer and copywriter. Build me a complete, beautiful, modern ONE-PAGE website as a single self-contained HTML file (inline CSS, mobile-first; only Google Fonts allowed as an external resource).
+
+MY BUSINESS
+• Name: ${n}
+• What we do: ${s}
+• Who it's for: ${c}
+${offer?`• Offer: ${offer}\n`:''}${ph?`• Phone: ${ph}\n`:''}${ins?`\nINSPIRATION\nBase the design, layout and vibe on a site I love: ${ins}\nCapture its feel — but make it original and tailored to my business.\n`:''}
+WHAT TO INCLUDE
+• Sticky header: business name + a "Call Now" button${ph?` (use tel:${ph})`:''}.
+• Hero: a bold headline, one-line subhead, and a primary call-to-action.
+• Services / what you get.
+• Why choose us (3–4 benefits).
+• A testimonials section (realistic placeholders).
+• A final call-to-action band.
+• Footer with contact info${ph?` and the phone number`:''}.
+
+STYLE
+• Premium and clean: tasteful colors, great typography, generous spacing, subtle hover effects.
+• Confident, benefit-driven copy that speaks directly to ${c}.
+• Fully responsive on phones.
+
+OUTPUT
+Give me ONLY the complete HTML in one code block, ready to copy. No explanation.`;
+       const box=b.querySelector('#o_site');
+       box.innerHTML=`<div class="out" style="white-space:pre-wrap;font-size:13px;max-height:240px;overflow:auto">${p.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</div>
+         <button class="btn btn-primary btn-sm" id="openClaude">📋 Copy + open Claude</button>
+         <button class="btn btn-glass btn-sm" id="copySite">Copy prompt</button>
+         <p class="note"><b>How to use it:</b><br>1. Tap “Copy + open Claude” — we copy this prompt and open Claude for you.<br>2. Paste it into Claude (Cmd/Ctrl + V) and let it build your site.<br>3. Copy the HTML code Claude gives you.<br>4. Paste that code into your website builder inside your CRM (from the CRM step) — and you're live.</p>`;
+       box.querySelector('#copySite').onclick=()=>copy(p);
+       box.querySelector('#openClaude').onclick=()=>{const w=window.open('https://claude.ai/new','_blank');if(!w)location.href='https://claude.ai/new';copy(p);toast('Prompt copied — paste it into Claude');};
+     };
+   }},
+  {id:'phone',icon:'📞',title:'Buy a company phone number',why:'A dedicated line so customers can call you — and it auto-fills your ads & group posts.',
+   act:b=>{b.innerHTML=`<a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://www.openphone.com/">Get a number ↗</a><a class="btn btn-glass btn-sm" target="_blank" rel="noopener" href="https://voice.google.com/">Google Voice (free) ↗</a>
+   <div class="field" style="margin-top:12px"><label><span class="dot"></span>Your business phone number</label><input id="f_phone" placeholder="e.g. (480) 555-1234"></div>
+   <p class="note">Add it here and it drops straight into your Facebook ads and all 10 group posts.</p>`;
+   const el=b.querySelector('#f_phone');el.value=state.fields.phone||'';
+   el.addEventListener('input',()=>{state.fields.phone=el.value;save();if(typeof renderAds==='function')renderAds();if(typeof renderPosts==='function')renderPosts();});}},
+  {id:'a2p',icon:'📲',title:'Get A2P Approval',why:'Registers your number so your business texts actually get delivered, not blocked by carriers.',
+   act:b=>{b.innerHTML=`<a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent('A2P 10DLC registration brand campaign approval')}">How A2P works ↗</a><p class="note">Done inside whoever powers your texting (GHL, OpenPhone, Twilio, etc.): register your <b>Brand</b> (business info + EIN) and a <b>Campaign</b> (what you'll text). Takes a few days to approve — start it early.</p>`;}},
+  {id:'fbpage',icon:'📘',title:'Create FB Business Page',why:'Your free storefront — where customers check you out and message you.',
+   act:b=>{const bio=`${F('name','Your Business')}\n\n${cap(svc())}. Message us to get started 👇`;b.innerHTML=`<div class="out" style="white-space:pre-wrap;font-size:14px">${bio}</div><button class="btn btn-glass btn-sm" id="cp_pg">Copy bio</button><a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://www.facebook.com/pages/creation/">Create Page ↗</a>`;b.querySelector('#cp_pg').onclick=()=>copy(bio);}},
+  {id:'gmb',icon:'📍',title:'Create Google Business Profile',why:'Show up on Google Maps & Search when locals look for what you do — free, and a top lead source.',
+   act:b=>{b.innerHTML=`<a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://business.google.com/create">Create listing ↗</a><p class="note">Formerly "Google My Business." Add your hours, service area, photos, and that phone number — then verify it. Ask every happy customer for a review.</p>`;}},
+  {id:'fbads',icon:'🎯',title:'Create FB Ads Account',why:'The switch that turns customers on. Set it up, paste your Step 3 ads, and go.',
+   act:b=>{b.innerHTML=`<a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://business.facebook.com/">Open Meta Business ↗</a><a class="btn btn-glass btn-sm" target="_blank" rel="noopener" href="https://www.facebook.com/business/help/910137316041095">How-to ↗</a><p class="note">Business Manager → Ad Account → add payment. Then paste your Step 3 ads.</p>`;}},
+  {id:'crm',icon:'📇',title:'Sign up for a CRM',why:'One place for every lead and customer so none slip through the cracks.',
+   act:b=>{b.innerHTML=`<a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://leadminingpros.com/crm">Get your CRM ↗</a><p class="note">Your CRM tracks every lead from first contact to paying customer — and ties into the phone number and ads you set up.</p>`;}},
+  {id:'pnl',icon:'📊',title:'Create P&L',why:'Know if you\'re actually making money. Build it live in Step 4.',
+   act:b=>{b.innerHTML=`<button class="btn btn-primary btn-sm" id="go_pnl">Open live P&amp;L →</button><p class="note">Edit your revenue and expenses in the P&L tab — it totals automatically and exports to CSV.</p>`;b.querySelector('#go_pnl').onclick=()=>goTab(3);}},
+];
+const checkSVG='<svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const list=$('#setupList');
+TASKS.forEach((t,i)=>{const el=document.createElement('div');el.className='task'+(state.done[t.id]?' done':'');
+  el.style.animationDelay=(i*60)+'ms';
+  el.innerHTML=`<div class="medal">${t.icon}</div><div class="t-main"><div class="t-row"><div class="t-title">${t.title}</div><div class="check">${checkSVG}</div></div><div class="t-why">${t.why}</div><div class="t-act"></div></div>`;
+  list.appendChild(el);t.act(el.querySelector('.t-act'));
+  el.querySelector('.check').addEventListener('click',()=>{state.done[t.id]=!state.done[t.id];
+    el.classList.toggle('done',state.done[t.id]);save();progress();
+    if(state.done[t.id]){toast('Boom. One down 👏');const n=TASKS.filter(x=>state.done[x.id]).length;if(n===TASKS.length){burst();setTimeout(()=>toast('All set up — you\'re official 🎉'),300);}else burst();}});});
+
+const C=2*Math.PI*17;
+function progress(){const n=TASKS.filter(t=>state.done[t.id]).length,tot=TASKS.length,p=n/tot;
+  $('#ringbar').style.strokeDashoffset=C*(1-p);$('#pct').textContent=Math.round(p*100)+'%';}
+progress();
+
+let acted=false;function renderAction(){if(!acted){renderReasons();renderAds();renderPosts();acted=true;}}
+
+/* ---- Step 4: live P&L ---- */
+const SECT=[['revenue','Revenue'],['cogs','Cost of Goods Sold'],['opex','Operating Expenses']];
+function psum(k){return state.pnl[k].reduce((a,r)=>a+(+r.amt||0),0);}
+function ptot(){const rev=psum('revenue'),cogs=psum('cogs'),gp=rev-cogs,opex=psum('opex'),net=gp-opex;return{rev,cogs,gp,opex,net};}
+function money(n){return (n<0?'-$':'$')+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+$('#pnlPeriod').value=state.pnl.period||'';
+$('#pnlPeriod').addEventListener('input',e=>{state.pnl.period=e.target.value;save();});
+function renderPnl(){
+  const body=$('#pnlBody');body.innerHTML='';
+  SECT.forEach(([k,title])=>{
+    const wrap=document.createElement('div');wrap.className='pnl-sec';
+    const h=document.createElement('h4');h.textContent=title;wrap.appendChild(h);
+    state.pnl[k].forEach((row,idx)=>{
+      const r=document.createElement('div');r.className='pnl-row';
+      const lbl=document.createElement('input');lbl.className='lbl';lbl.value=row.label||'';lbl.placeholder='Line item';
+      const amt=document.createElement('input');amt.className='amt';amt.inputMode='decimal';amt.value=row.amt?row.amt:'';amt.placeholder='0.00';
+      const rm=document.createElement('button');rm.className='rm';rm.textContent='✕';rm.title='Remove';
+      lbl.addEventListener('input',()=>{state.pnl[k][idx].label=lbl.value;save();});
+      amt.addEventListener('input',()=>{state.pnl[k][idx].amt=parseFloat(amt.value.replace(/[^0-9.\-]/g,''))||0;save();updateTotals();});
+      rm.addEventListener('click',()=>{state.pnl[k].splice(idx,1);save();renderPnl();});
+      r.append(lbl,amt,rm);wrap.appendChild(r);
+    });
+    const add=document.createElement('button');add.className='pnl-add';add.textContent='+ Add line';
+    add.addEventListener('click',()=>{state.pnl[k].push({label:'',amt:0});save();renderPnl();});
+    wrap.appendChild(add);
+    const sub=document.createElement('div');sub.className='pnl-sub';sub.dataset.sub=k;wrap.appendChild(sub);
+    body.appendChild(wrap);
+  });
+  updateTotals();
+}
+function updateTotals(){
+  const t=ptot(),map={revenue:['Total Revenue',t.rev],cogs:['Total COGS',t.cogs],opex:['Total OpEx',t.opex]};
+  document.querySelectorAll('.pnl-sub').forEach(el=>{const m=map[el.dataset.sub];el.innerHTML=`<span>${m[0]}</span><span>${money(m[1])}</span>`;});
+  $('#pnlSummary').innerHTML=`<div class="pnl-big">
+    <div><span class="pl-lab">Gross Profit</span><span class="pl-val ${t.gp>=0?'pos':'neg'}">${money(t.gp)}</span></div>
+    <div><span class="pl-lab">Net Profit</span><span class="pl-val ${t.net>=0?'pos':'neg'}">${money(t.net)}</span></div></div>`;
+}
+function pnlCsv(){
+  const t=ptot(),rows=[[biz()+' — Profit & Loss'],['Period',state.pnl.period||''],[]];
+  const block=(title,k,totLbl,totVal)=>{rows.push([title.toUpperCase()]);state.pnl[k].forEach(r=>rows.push(['  '+(r.label||''),(+r.amt||0).toFixed(2)]));rows.push([totLbl,totVal.toFixed(2)],[]);};
+  block('Revenue','revenue','TOTAL REVENUE',t.rev);
+  block('Cost of Goods Sold','cogs','TOTAL COGS',t.cogs);
+  rows.push(['GROSS PROFIT',t.gp.toFixed(2)],[]);
+  block('Operating Expenses','opex','TOTAL OPEX',t.opex);
+  rows.push(['NET PROFIT',t.net.toFixed(2)]);
+  return rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+}
+$('#pnlCsv').onclick=()=>dl((F('name','business').replace(/[^a-z0-9]/gi,'_'))+'_PNL.csv',pnlCsv());
+renderPnl();
+
+/* ---- Dashboard ---- */
+function renderDashboard(){
+  const name=F('name','');
+  $('#dashTitle').textContent=name||'Your Dashboard';
+  $('#dashSub').textContent=name?`Here's where ${name} stands. Pick up wherever you left off.`:`Here's where everything stands. Pick up wherever you left off.`;
+  const doneN=TASKS.filter(t=>state.done[t.id]).length, totN=TASKS.length, pct=Math.round(doneN/totN*100);
+  const planFilled=PF.filter(f=>state.fields[f]&&state.fields[f].trim()).length;
+  const t=ptot(), next=TASKS.find(t=>!state.done[t.id]);
+  let h='';
+  h+=`<div class="card glow">
+    <div class="t-title">Launch progress</div>
+    <div class="bigbar"><span style="width:${pct}%"></span></div>
+    <p class="note" style="margin:0 0 12px">${doneN} of ${totN} setup steps done${next?` · next up: <b>${next.title}</b>`:` · fully set up 🎉`}</p>
+    ${next?`<button class="btn btn-primary btn-sm" data-go="2">Continue setup →</button>`:`<button class="btn btn-primary btn-sm" data-go="3">Go market it →</button>`}
+  </div>`;
+  h+=`<div class="stat-row">
+    <div class="stat"><div class="v">${pct}%</div><div class="l">Set up</div></div>
+    <div class="stat"><div class="v">${planFilled}/${PF.length}</div><div class="l">Plan</div></div>
+    <div class="stat"><div class="v" style="color:${t.net>=0?'var(--ok)':'#FF6B6B'}">${money(t.net)}</div><div class="l">Net profit</div></div>
+  </div>`;
+  h+=`<div class="card"><div class="t-title" style="margin-bottom:4px">Your checklist</div>`;
+  TASKS.forEach(tk=>{const d=!!state.done[tk.id];
+    h+=`<div class="dash-step ${d?'done':''}" data-go="2"><div class="dot2">${d?'✓':''}</div><div class="nm">${tk.icon} ${tk.title}</div><div class="go">›</div></div>`;});
+  h+=`</div>`;
+  h+=`<div class="nav-row">
+    <div class="nav-card" data-go="1"><div class="ic">📝</div><div class="t">The Plan</div></div>
+    <div class="nav-card" data-go="3"><div class="ic">📣</div><div class="t">Marketing</div></div>
+    <div class="nav-card" data-go="4"><div class="ic">📊</div><div class="t">Money</div></div>
+  </div>`;
+  const body=$('#dashBody'); body.innerHTML=h;
+  body.querySelectorAll('[data-go]').forEach(el=>el.addEventListener('click',()=>goTab(+el.dataset.go)));
+}
+renderDashboard();
+
+if(state.tab)goTab(state.tab);
+</script>
+</body>
+</html>
